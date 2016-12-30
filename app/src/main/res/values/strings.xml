@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Numier PDA</string>
+    <string name="logo_numier">Logotipo Numier</string>
+    <string name="connect">Conectar</string>
+    <string name="developed_nexodo">Desarrollado por Nexodo Digital S.L.</string>
+    <string name="version_pda">Versión 4.0.0</string>
+    <string name="welcome_message">Bienvenido a</string>
+    <string name="favorite_connections">Conexiones favoritas</string>
+    <string name="no_favorite_connections">No hay ninguna conexión guardada</string>
+    <string name="select_favorite_connections">Seleccione una conexión</string>
+    <string name="delete_fail_connection">Ha habido un error al borrar la conexión</string>
+    <string name="delete_connection">Eliminar conexión</string>
+    <string name="scan_qr">Conexión mediante código QR</string>
+    <string name="scan">Escanear</string>
+    <string name="conf_manual">Conexión manual</string>
+    <string name="url_pda">URL del servidor PDA</string>
+    <string name="pass_pda">Clave del servidor PDA</string>
+    <string name="connect_pda">Datos de conexión</string>
+    <string name="info_connect">Puede encontrar el codigo QR o los datos de conexión en el apartado Numier PDA dentro de la configuración de Numier TPV.\n\n Para mas información consulte con su distribuidor.</string>
+    <string name="complete_input">Rellene todos los campos</string>
+    <string name="wait_moment">Espere un momento</string>
+    <string name="connecting_server">Conectando con servidor Numier PDA</string>.
+    <string name="attention">Atención</string>
+    <string name="server_and_pda_distinc_net">El servidor y el dispositivo no se encuentran en la misma red:</string>
+    <string name="ip_pda">IP Dispositivo:</string>
+    <string name="ip_server">IP Servidor:</string>
+    <string name="server_and_pda_equals_ip">La dirección IP de su dispositivo no puede ser la misma que la del servidor. Reinicie el dispositivo o cambie la ip manualmente.</string>
+    <string name="level_pda_low">La intensidad de la conexión del dispositivo es muy baja.</string>
+    <string name="connect_server_fail">No es posible conectarse al servidor. Reinicie el equipo TPV y el dispositivo.</string>
+    <string name="close">Cerrar</string>
+    <string name="prompt_scan_qr">Coloque el codigo QR en el interior del visor para escanear.</string>
+    <string name="scan_qr_cancelled">Escaneo de codiogo QR cancelado</string>
+    <string name="config_data">Datos de configuración</string>
+    <string name="select_worker">Seleccione el operario</string>
+    <string name="select_rate">Seleccione la tarifa</string>
+    <string name="input_name_pda">Introduzca el nombre del dispositivo</string>
+    <string name="input_name_favorite">Introduzca el nombre de la conexión</string>
+    <string name="finish">Finalizar</string>
+    <string name="loading">Cargando</string>
+    <string name="splash_info">Descargando datos del sistema Numier TPV. \n\nEste proceso puede tardar unos minutos. \n\nEspere por favor.</string>
+    <string name="downloading_workers">Descargando operarios</string>
+    <string name="inserting_products">Insertando Productos</string>
+    <string name="inserting_subproducts">Insertando Relación de Subproductos</string>
+    <string name="inserting_modifiers">Insertando Modificadores</string>
+    <string name="rateDefault">Tarifa: 1</string>
+    <string name="cash">Caja</string>
+    <string name="conf">Configuración</string>
+    <string name="exit">Salir</string>
+
+</resources>
