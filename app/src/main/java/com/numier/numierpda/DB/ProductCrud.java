@@ -30,7 +30,7 @@ public class ProductCrud implements Crud<Product> {
 
 		try {
 			SQLiteDatabase sqlDB = db.getWritableDatabase();
-			sqlDB.beginTransaction();
+//			sqlDB.beginTransaction();
 			for (Product p : listObjects) {
 				ContentValues values = new ContentValues();
 				values.put("ID_PRODUCT", p.getId());
@@ -67,11 +67,13 @@ public class ProductCrud implements Crud<Product> {
 
 				db.getWritableDatabase().insert("PRODUCT", null, values);
 
+				Log.d("entra", "entra");
+
 				NumierApi.incrementProgress();
 
 			}
-			sqlDB.setTransactionSuccessful();
-			sqlDB.endTransaction();
+//			sqlDB.setTransactionSuccessful();
+//			sqlDB.endTransaction();
 		} catch (SQLiteException sqlIo) {
 			sqlIo.printStackTrace();
 			return false;

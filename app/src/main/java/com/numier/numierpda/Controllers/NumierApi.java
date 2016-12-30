@@ -98,6 +98,7 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
     public static final int __PRODUCT_SUBPRODUCT_TYPE = 4;
 
     public ProgressDialog progress;
+    public static ProgressDialog p;
 
     String json;
     Activity activity;
@@ -121,7 +122,7 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
     }
 
     public static void incrementProgress() {
-//        progress.incrementProgressBy(1);
+        p.incrementProgressBy(1);
     }
 
     @Override
@@ -139,14 +140,14 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
 
         progress = new ProgressDialog(activity);
 
-        progress.setTitle("Prueba");
-
-//        progress.setTitle(activity.getString(R.string.loading));
+        progress.setTitle(activity.getString(R.string.loading));
 
         progress.setMessage(activity.getString(R.string.splash_info));
 
         progress.setCancelable(false);
         progress.show();
+
+        p = new ProgressDialog(activity);
 
     }
 
@@ -449,19 +450,26 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
         super.onPostExecute(aVoid);
 
 
-//        ProgressDialog p = new ProgressDialog(activity);
-//        p.show();
-//
-//        // INSERTO CATEGORIAS Y PRODUCTOS
-//        p.setMessage(activity.getString(R.string.inserting_products));
-////        p.setProgress(0);
-////        p.setMax(numProducts);
-//
-//
-////        new CategoryCrud(db).insert(listCategories);
-//
-//
-//        // INSERTO RELACION SUBPRODUCTOS
+
+        p.setProgressStyle(progress.STYLE_HORIZONTAL);
+        p.show();
+
+        // INSERTO CATEGORIAS Y PRODUCTOS
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                p.setMessage(activity.getString(R.string.inserting_products));
+                p.setProgress(0);
+                p.setMax(numProducts);
+                new CategoryCrud(db).insert(listCategories);
+            }
+        }).start();
+
+
+
+
+        // INSERTO RELACION SUBPRODUCTOS
 //        p.setMessage(activity.getString(R.string.inserting_subproducts));
 ////        p.setProgress(0);
 ////        p.setMax(listProductsSubproducts.size());
@@ -476,6 +484,8 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
 //        new ModifierCrud(db).insert(listModifiers);
 //
 ////        progress.dismiss();
+
+        Log.d("result", result);
 //
 //        if (result.equals("OK")) {
 //
