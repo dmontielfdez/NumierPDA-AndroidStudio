@@ -13,7 +13,7 @@ import com.numier.numierpda.Models.MenuDet;
 import com.numier.numierpda.Models.MenuItem;
 
 
-public class MenuCrud implements Crud<Menu> {
+public class MenuCrud {
 
 	// Atributos
 	private Database db;
@@ -44,7 +44,6 @@ public class MenuCrud implements Crud<Menu> {
 		return true;
 	}
 
-	@Override
 	public List<Menu> getAll() {
 
 		List<Menu> menus = new ArrayList<Menu>();
@@ -207,9 +206,4 @@ public class MenuCrud implements Crud<Menu> {
 		return listTitles;
 	}
 
-	@Override
-	public boolean insert(List<Menu> listObjects) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 }

@@ -42,7 +42,8 @@
     <string name="splash_info">Descargando datos del sistema Numier TPV. \n\nEste proceso puede tardar unos minutos. \n\nEspere por favor.</string>
     <string name="downloading_workers">Descargando operarios</string>
     <string name="inserting_products">Insertando Productos</string>
-    <string name="inserting_subproducts">Insertando Relación de Subproductos</string>
+    <string name="inserting_subproducts">Insertando Subproductos</string>
+    <string name="inserting_products_subproducts">Insertando Relación de Subproductos</string>
     <string name="inserting_modifiers">Insertando Modificadores</string>
     <string name="rateDefault">Tarifa: 1</string>
     <string name="cash">Caja</string>

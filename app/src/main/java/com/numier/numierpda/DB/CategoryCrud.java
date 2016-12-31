@@ -11,7 +11,7 @@ import android.util.Log;
 import com.numier.numierpda.Models.Category;
 
 
-public class CategoryCrud implements Crud<Category> {
+public class CategoryCrud {
 
 	// Atributos
 	private Database db;
@@ -21,7 +21,6 @@ public class CategoryCrud implements Crud<Category> {
 		this.db = db;
 	}
 
-	@Override
 	public boolean insert(List<Category> listObjects) {
 
 		try {
@@ -33,7 +32,6 @@ public class CategoryCrud implements Crud<Category> {
 
 				db.getWritableDatabase().insert("CATEGORY", null, values);
 
-				new ProductCrud(db).insert(c.getProducts());
 			}
 		} catch (SQLiteException sqlIo) {
 			sqlIo.printStackTrace();
@@ -43,7 +41,6 @@ public class CategoryCrud implements Crud<Category> {
 	}
 
 
-	@Override
 	public List<Category> getAll() {
 
 		List<Category> categories = new ArrayList<Category>();

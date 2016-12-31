@@ -12,7 +12,7 @@ import com.numier.numierpda.Controllers.NumierApi;
 import com.numier.numierpda.Models.Worker;
 
 
-public class WorkerCrud implements Crud<Worker> {
+public class WorkerCrud  {
 
 	private Database db;
 
@@ -20,7 +20,6 @@ public class WorkerCrud implements Crud<Worker> {
 		this.db = db;
 	}
 
-	@Override
 	public boolean insert(List<Worker> listObjects) {
 
 		try {
@@ -40,7 +39,6 @@ public class WorkerCrud implements Crud<Worker> {
 		return true;
 	}
 
-	@Override
 	public List<Worker> getAll() {
 
 		List<Worker> workers = new ArrayList<Worker>();

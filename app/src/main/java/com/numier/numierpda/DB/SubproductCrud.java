@@ -5,81 +5,82 @@ import java.util.List;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 
 import com.numier.numierpda.Models.Subproduct;
 
 
-public class SubproductCrud implements Crud<Subproduct> {
+public class SubproductCrud {
 
-	// Atributos
-	private Database db;
+    // Atributos
+    private Database db;
 
-	// Constructor
-	public SubproductCrud(Database db) {
-		this.db = db;
-	}
+    // Constructor
+    public SubproductCrud(Database db) {
+        this.db = db;
+    }
 
-	// Inserción de datos
-	@Override
-	public boolean insert(List<Subproduct> listObjects) {
+    // Inserción de datos
+    public int insert(Subproduct s) {
+        int c = 0;
+        try {
 
-		try {
-			for (Subproduct c : listObjects) {
-				ContentValues values = new ContentValues();
-				values.put("ID_SUBPRODUCT", c.getId());
-				values.put("NAME", c.getName());
-				values.put("PRICE", c.getPrice());
+            ContentValues values = new ContentValues();
+            values.put("ID_SUBPRODUCT", s.getId());
+            values.put("NAME", s.getName());
+            values.put("PRICE", s.getPrice());
 
-				db.getWritableDatabase().insert("SUBPRODUCT", null, values);
+            long id = db.getWritableDatabase().insert("SUBPRODUCT", null, values);
+            c = (int) id;
 
-			}
-		} catch (SQLiteException sqlIo) {
-			sqlIo.printStackTrace();
-			return false;
-		}
-		return true;
-	}
 
-	@Override
-	public List<Subproduct> getAll() {
 
-		List<Subproduct> subproducts = new ArrayList<Subproduct>();
+        } catch (SQLiteException sqlIo) {
+            sqlIo.printStackTrace();
+            return 0;
+        }
+        return c;
+    }
 
-		Cursor c = db.getReadableDatabase().rawQuery("SELECT * FROM SUBPRODUCT",
-				null);
+    public List<Subproduct> getAll() {
 
-		// Nos aseguramos de que existe al menos un registro
-		if (c.moveToFirst()) {
-			// Recorremos el cursor hasta que no haya más registros
-			do {
-				subproducts.add(new Subproduct(c.getInt(0), c.getString(1), c
-						.getDouble(2)));
-			} while (c.moveToNext());
-		}
-		c.close();
+        List<Subproduct> subproducts = new ArrayList<Subproduct>();
 
-		return subproducts;
-	}
+        Cursor c = db.getReadableDatabase().rawQuery("SELECT * FROM SUBPRODUCT",
+                null);
 
-	public Subproduct findById(int idSubProduct) {
+        // Nos aseguramos de que existe al menos un registro
+        if (c.moveToFirst()) {
+            // Recorremos el cursor hasta que no haya más registros
+            do {
+                subproducts.add(new Subproduct(c.getInt(0), c.getString(1), c
+                        .getDouble(2)));
+            } while (c.moveToNext());
+        }
+        c.close();
 
-		Subproduct subproduct = null;
+        return subproducts;
+    }
 
-		Cursor c = db.getReadableDatabase().rawQuery(
-				"SELECT * FROM SUBPRODUCT WHERE ID_SUBPRODUCT=" + idSubProduct,
-				null);
+    public Subproduct findById(int idSubProduct) {
 
-		// Nos aseguramos de que existe al menos un registro
-		if (c.moveToFirst()) {
-			// Recorremos el cursor hasta que no haya más registros
-			do {
-				subproduct = new Subproduct(c.getInt(0), c.getString(1),
-						c.getDouble(2));
-			} while (c.moveToNext());
-		}
-		c.close();
+        Subproduct subproduct = null;
 
-		return subproduct;
-	}
+        Cursor c = db.getReadableDatabase().rawQuery(
+                "SELECT * FROM SUBPRODUCT WHERE ID_SUBPRODUCT=" + idSubProduct,
+                null);
+
+        // Nos aseguramos de que existe al menos un registro
+        if (c.moveToFirst()) {
+            // Recorremos el cursor hasta que no haya más registros
+            do {
+                subproduct = new Subproduct(c.getInt(0), c.getString(1),
+                        c.getDouble(2));
+            } while (c.moveToNext());
+        }
+        c.close();
+
+        return subproduct;
+    }
 }

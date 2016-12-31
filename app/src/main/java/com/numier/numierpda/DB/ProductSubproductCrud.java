@@ -13,7 +13,7 @@ import com.numier.numierpda.Controllers.NumierApi;
 import com.numier.numierpda.Models.ProductSubproduct;
 
 
-public class ProductSubproductCrud implements Crud<ProductSubproduct> {
+public class ProductSubproductCrud {
 
 	// Atributos
 	private Database db;
@@ -23,39 +23,28 @@ public class ProductSubproductCrud implements Crud<ProductSubproduct> {
 		this.db = db;
 	}
 
-	// Inserci�n de datos
-	@Override
-	public boolean insert(List<ProductSubproduct> listObjects) {
-
+	public int insert(ProductSubproduct ps) {
+		int c = 0;
 		try {
-			SQLiteDatabase sqlDB = db.getWritableDatabase();
-			sqlDB.beginTransaction();
-			
-			for (ProductSubproduct c : listObjects) {
+
 				ContentValues values = new ContentValues();
-				values.put("ID_SUBPRODUCT", c.getIdSubproduct());
-				values.put("ID_PRODUCT", c.getIdProduct());
-				values.put("INCLUDED", c.getIncluded());
-				values.put("PRICE", c.getPrice());
-				values.put("ORDEN", c.getOrden());
-				values.put("TYPE", c.getType());
+				values.put("ID_SUBPRODUCT", ps.getIdSubproduct());
+				values.put("ID_PRODUCT", ps.getIdProduct());
+				values.put("INCLUDED", ps.getIncluded());
+				values.put("PRICE", ps.getPrice());
+				values.put("ORDEN", ps.getOrden());
+				values.put("TYPE", ps.getType());
 
-				db.getWritableDatabase().insert("PRODUCTSUBPRODUCT", null,
-						values);
+			long id = db.getWritableDatabase().insert("PRODUCTSUBPRODUCT", null, values);
+			c = (int)id;
 
-				NumierApi.incrementProgress();
-			}
-			
-			sqlDB.setTransactionSuccessful();
-			sqlDB.endTransaction();
 		} catch (SQLiteException sqlIo) {
 			sqlIo.printStackTrace();
-			return false;
+			return 0;
 		}
-		return true;
+		return c;
 	}
 
-	@Override
 	public List<ProductSubproduct> getAll() {
 
 		List<ProductSubproduct> productSubproducts = new ArrayList<ProductSubproduct>();

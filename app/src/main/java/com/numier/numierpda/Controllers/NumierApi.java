@@ -3,16 +3,16 @@ package com.numier.numierpda.Controllers;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.numier.numierpda.Activities.Main;
 import com.numier.numierpda.DB.CategoryCrud;
 import com.numier.numierpda.DB.Database;
 import com.numier.numierpda.DB.MenuCrud;
 import com.numier.numierpda.DB.MenuDetCrud;
 import com.numier.numierpda.DB.ModifierCrud;
+import com.numier.numierpda.DB.ProductCrud;
 import com.numier.numierpda.DB.ProductSubproductCrud;
 import com.numier.numierpda.DB.SubproductCrud;
 import com.numier.numierpda.DB.WorkerCrud;
@@ -98,7 +98,6 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
     public static final int __PRODUCT_SUBPRODUCT_TYPE = 4;
 
     public ProgressDialog progress;
-    public static ProgressDialog p;
 
     String json;
     Activity activity;
@@ -122,7 +121,7 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
     }
 
     public static void incrementProgress() {
-        p.incrementProgressBy(1);
+//        p.incrementProgressBy(1);
     }
 
     @Override
@@ -147,7 +146,7 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
         progress.setCancelable(false);
         progress.show();
 
-        p = new ProgressDialog(activity);
+//        p = new ProgressDialog(activity);
 
     }
 
@@ -270,7 +269,6 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
                         .getString(__SUBPRODUCT_NAME), elementSubProducts
                         .getDouble(__SUBBPRODUCT_PRICE)));
             }
-            new SubproductCrud(db).insert(listSubProducts);
 
 
             // CATEGORIES
@@ -449,45 +447,122 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
 
+        progress.dismiss();
+
+        if (result.equals("OK")) {
+            new InsertDataDB().execute();
+        } else {
+            DialogsTools.launchCustomDialog(activity, result);
+        }
+
+    }
+
+    public class InsertDataDB extends AsyncTask<Void, Integer, Void> {
+
+        ProgressDialog p;
+        SQLiteDatabase sqlDB;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            p = new ProgressDialog(activity);
+            p.setProgressStyle(progress.STYLE_HORIZONTAL);
+            p.setMessage(activity.getString(R.string.inserting_products));
+            p.setProgress(0);
+            p.setMax(numProducts);
+            p.show();
 
 
-        p.setProgressStyle(progress.STYLE_HORIZONTAL);
-        p.show();
+        }
 
-        // INSERTO CATEGORIAS Y PRODUCTOS
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            int progreso = values[0].intValue();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                p.setMessage(activity.getString(R.string.inserting_products));
-                p.setProgress(0);
-                p.setMax(numProducts);
-                new CategoryCrud(db).insert(listCategories);
+            p.setProgress(progreso);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            sqlDB = db.getWritableDatabase();
+            sqlDB.beginTransaction();
+
+            // INSERTO CATEGORIAS Y PRODUCTOS
+            new CategoryCrud(db).insert(listCategories);
+
+            for (Category c : listCategories) {
+                for (Product p : c.getProducts()) {
+                    int idProduct = new ProductCrud(db).insert(p);
+                    publishProgress(idProduct);
+                }
             }
-        }).start();
+
+            //INSERTO SUBPRODUCTOS
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    p.setMessage(activity.getString(R.string.inserting_subproducts));
+                    p.setProgress(0);
+                    p.setMax(listSubProducts.size());
+                }
+            });
+
+
+            for (Subproduct s : listSubProducts) {
+                int idSubproduct = new SubproductCrud(db).insert(s);
+                publishProgress(idSubproduct);
+            }
+
+
+            //INSERTO RELACION SUBPRODUCTOS
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    p.setMessage(activity.getString(R.string.inserting_products_subproducts));
+                    p.setProgress(0);
+                    p.setMax(listProductsSubproducts.size());
+                }
+            });
+
+
+            for (ProductSubproduct ps : listProductsSubproducts) {
+                int idProductSubproduct = new ProductSubproductCrud(db).insert(ps);
+                publishProgress(idProductSubproduct);
+            }
+
+            // INSERTO MODIFICADORES
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    p.setMessage(activity.getString(R.string.inserting_modifiers));
+                    p.setProgress(0);
+                    p.setMax(listModifiers.size());
+                }
+            });
+
+            for (Modifier m : listModifiers) {
+                int idModifier = new ModifierCrud(db).insert(m);
+                publishProgress(idModifier);
+            }
+
+            sqlDB.setTransactionSuccessful();
+            sqlDB.endTransaction();
+
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Log.d("terminado", "terminado");
+            p.dismiss();
 
 
 
-
-        // INSERTO RELACION SUBPRODUCTOS
-//        p.setMessage(activity.getString(R.string.inserting_subproducts));
-////        p.setProgress(0);
-////        p.setMax(listProductsSubproducts.size());
-//
-//        new ProductSubproductCrud(db).insert(listProductsSubproducts);
-//
-//        // INSERTO MODIFICADORES
-//        p.setMessage(activity.getString(R.string.inserting_modifiers));
-////        p.setProgress(0);
-////        p.setMax(listModifiers.size());
-//
-//        new ModifierCrud(db).insert(listModifiers);
-//
-////        progress.dismiss();
-
-        Log.d("result", result);
-//
-//        if (result.equals("OK")) {
+            //        if (result.equals("OK")) {
 //
 ////            PreferencesTools.savePreferences(activity, "configured", "true");
 ////            Intent intent = new Intent(activity, Main.class);
@@ -497,6 +572,7 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
 //        } else {
 //            DialogsTools.launchCustomDialog(activity, result);
 //        }
+        }
     }
 }
 

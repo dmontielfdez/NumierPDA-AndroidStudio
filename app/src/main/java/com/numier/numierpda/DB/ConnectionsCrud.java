@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ConnectionsCrud implements Crud<Connection> {
+public class ConnectionsCrud{
 
 	private Database db;
 
@@ -42,7 +42,6 @@ public class ConnectionsCrud implements Crud<Connection> {
 		return id;
 	}
 
-	@Override
 	public List<Connection> getAll() {
 
 		List<Connection> connections = new ArrayList<Connection>();
@@ -68,11 +67,6 @@ public class ConnectionsCrud implements Crud<Connection> {
 		return connections;
 	}
 
-	@Override
-	public boolean insert(List<Connection> listObjects) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
 	public int deleteConnection(String id) {
 			

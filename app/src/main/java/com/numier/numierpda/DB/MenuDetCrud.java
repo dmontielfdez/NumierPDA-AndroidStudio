@@ -12,7 +12,7 @@ import android.util.Log;
 import com.numier.numierpda.Models.MenuDet;
 
 
-public class MenuDetCrud implements Crud<MenuDet> {
+public class MenuDetCrud {
 
 	// Atributos
 	private Database db;
@@ -23,7 +23,6 @@ public class MenuDetCrud implements Crud<MenuDet> {
 	}
 
 	// Inserción de datos
-	@Override
 	public boolean insert(List<MenuDet> listObjects) {
 
 		try {
@@ -44,7 +43,6 @@ public class MenuDetCrud implements Crud<MenuDet> {
 		return true;
 	}
 
-	@Override
 	public List<MenuDet> getAll() {
 
 		List<MenuDet> menudets = new ArrayList<MenuDet>();

@@ -13,7 +13,7 @@ import android.util.Log;
 
 import com.numier.numierpda.Models.SubproductSeling;
 
-public class SelingSubproductCrud implements Crud<SubproductSeling>{
+public class SelingSubproductCrud {
 
 	// Atributos
 	private Database db;
@@ -23,7 +23,6 @@ public class SelingSubproductCrud implements Crud<SubproductSeling>{
 		this.db = db;
 	}
 
-	@Override
 	public boolean insert(List<SubproductSeling> listObjects) {
 		try {
 			for (SubproductSeling c : listObjects) {
@@ -212,8 +211,6 @@ public class SelingSubproductCrud implements Crud<SubproductSeling>{
 	}
 
 
-
-	@Override
 	public List<SubproductSeling> getAll() {
 		// TODO Auto-generated method stub
 		return null;
