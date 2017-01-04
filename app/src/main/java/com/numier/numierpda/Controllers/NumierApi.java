@@ -3,10 +3,12 @@ package com.numier.numierpda.Controllers;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.numier.numierpda.Activities.Main;
 import com.numier.numierpda.DB.CategoryCrud;
 import com.numier.numierpda.DB.Database;
 import com.numier.numierpda.DB.MenuCrud;
@@ -560,18 +562,17 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
             Log.d("terminado", "terminado");
             p.dismiss();
 
+            if (result.equals("OK")) {
+                PreferencesTools.savePreferences(activity, "configured", "true");
+                Intent intent = new Intent(activity, Main.class);
+                activity.startActivity(intent);
+                activity.finish();
+
+            } else {
+                DialogsTools.launchCustomDialog(activity, result);
+            }
 
 
-            //        if (result.equals("OK")) {
-//
-////            PreferencesTools.savePreferences(activity, "configured", "true");
-////            Intent intent = new Intent(activity, Main.class);
-////            activity.startActivity(intent);
-////            activity.finish();
-//
-//        } else {
-//            DialogsTools.launchCustomDialog(activity, result);
-//        }
         }
     }
 }

@@ -2,9 +2,11 @@ package com.numier.numierpda.Controllers;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.numier.numierpda.Activities.Welcome;
 import com.numier.numierpda.R;
 import com.numier.numierpda.Tools.DialogsTools;
 import com.numier.numierpda.Tools.OkHttpTools;
@@ -55,6 +57,7 @@ public class Init extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String resp) {
         progress.dismiss();
+        Intent intent = new Intent(activity, Welcome.class);
 
         if(!resp.equals("")){
             try {
@@ -69,7 +72,7 @@ public class Init extends AsyncTask<Void, Void, String> {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                DialogsTools.launchCustomDialog(activity, resp);
+
             }
         } else{
             DialogsTools.launchServerDialog(activity);

@@ -47,7 +47,21 @@
     <string name="inserting_modifiers">Insertando Modificadores</string>
     <string name="rateDefault">Tarifa: 1</string>
     <string name="cash">Caja</string>
-    <string name="conf">Configuración</string>
+    <string name="settings">Ajustes</string>
     <string name="exit">Salir</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="confirm_cancel">¿Está seguro de que desea salir?</string>
+    <string name="name_pda">Nombre del dispositivo</string>
+    <string name="check_version">Comprobar versión</string>
+    <string name="worker">Operario</string>
+    <string name="rate">Tarifa</string>
+    <string name="tools">Utilidades</string>
+    <string name="reload_data">Recargar datos</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="summary_logout">Cierra la sesión en el dispositvo y permite configurar una sesión nueva</string>
+    <string name="summary_reload_data">Descarga los ultimos cambios de Numier TPV</string>
+    <string name="summary_check_version">Comprueba si hay una nueva versión de Numier PDA</string>
+    <string name="general">General</string>
 
 </resources>

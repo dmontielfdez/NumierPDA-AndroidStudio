@@ -25,14 +25,14 @@
             android:id="@+id/rateMainFragment"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.3"
             android:text="@string/rateDefault"
             android:textColor="#fff"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/caja"
+            android:id="@+id/cash"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="2dp"
@@ -52,7 +52,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
                 android:layout_weight="1"
-                android:text="@string/conf" />
+                android:text="@string/settings" />
 
             <Button
                 android:id="@+id/exit"

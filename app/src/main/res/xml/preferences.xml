@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="@string/general"
+        android:title="@string/general">
+        <EditTextPreference
+            android:key="url"
+            android:title="@string/ip_server" />
+        <EditTextPreference
+            android:key="namePda"
+            android:title="@string/name_pda" />
+        <ListPreference
+            android:key="worker"
+            android:title="@string/worker" />
+        <ListPreference
+            android:key="rate"
+            android:entries="@array/rates"
+            android:entryValues="@array/rates"
+            android:title="@string/rate" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="@string/tools"
+        android:title="@string/tools">
+        <Preference
+            android:icon="@mipmap/ic_check_version"
+            android:key="check_version"
+            android:summary="@string/summary_check_version"
+            android:title="@string/check_version">
+            <intent android:action="android.intent.action.VIEW" />
+        </Preference>
+        <Preference
+            android:icon="@mipmap/ic_reload"
+            android:key="reload_data"
+            android:summary="@string/summary_reload_data"
+            android:title="@string/reload_data">
+            <intent android:action="android.intent.action.VIEW" />
+        </Preference>
+        <Preference
+            android:icon="@mipmap/ic_logout"
+            android:key="logout"
+            android:summary="@string/summary_logout"
+            android:title="@string/logout">
+            <intent android:action="android.intent.action.VIEW" />
+        </Preference>
+    </PreferenceCategory>
+</PreferenceScreen>

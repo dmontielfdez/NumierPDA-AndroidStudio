@@ -1,5 +1,6 @@
 package com.numier.numierpda.DB;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,43 @@ public class WorkerCrud  {
 
 		return workers;
 	}
+
+	public List<String> getAllNames() {
+
+		List<String> nameWorkers = new ArrayList<>();
+
+		Cursor c = db.getReadableDatabase().rawQuery("SELECT * FROM WORKER", null);
+
+		if (c.getCount() != 0) {
+
+			c.moveToFirst();
+			do {
+				nameWorkers.add(c.getString(NumierApi.__WORKER_NAME));
+			} while (c.moveToNext());
+		}
+		c.close();
+
+		return nameWorkers;
+	}
+
+	public ArrayList<String> getAllCodes() {
+
+		ArrayList<String> nameWorkers = new ArrayList<>();
+
+		Cursor c = db.getReadableDatabase().rawQuery("SELECT * FROM WORKER", null);
+
+		if (c.getCount() != 0) {
+
+			c.moveToFirst();
+			do {
+				nameWorkers.add(c.getString(NumierApi.__WORKER_ID));
+			} while (c.moveToNext());
+		}
+		c.close();
+
+		return nameWorkers;
+	}
+
 
 
 	public String[] getPwd (String id){

@@ -16,6 +16,10 @@ public class Main extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.activity_main, new MainFragment())
                 .commit();
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 }

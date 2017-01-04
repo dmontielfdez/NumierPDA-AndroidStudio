@@ -71,7 +71,6 @@ public class DialogFavorites extends DialogFragment {
                 PreferencesTools.savePreferences(context, "rate", listConnections.get(position).getRate());
                 PreferencesTools.savePreferences(context, "namePda", listConnections.get(position).getTerminal());
                 PreferencesTools.savePreferences(context, "favorite", listConnections.get(position).getId() + "");
-//                PreferencesTools.savePreferences(context, "configured", "true");
 
                 startActivity(new Intent(context, Splash.class));
                 context.finish();

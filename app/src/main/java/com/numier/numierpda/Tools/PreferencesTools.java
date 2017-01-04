@@ -3,7 +3,7 @@ package com.numier.numierpda.Tools;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-
+import android.preference.PreferenceManager;
 
 
 public class PreferencesTools {
@@ -11,7 +11,7 @@ public class PreferencesTools {
 
 	public static boolean savePreferences(Activity context, String key, String value) {
 
-		SharedPreferences prefs = context.getSharedPreferences("NumierPDA", Context.MODE_PRIVATE);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
 		SharedPreferences.Editor editor = prefs.edit();
 		editor.putString(key, value);
@@ -33,7 +33,7 @@ public class PreferencesTools {
 
 	public static String getValueOfPreferences(Activity context, String key) {
 		
-		SharedPreferences prefs = context.getSharedPreferences("NumierPDA",	Context.MODE_PRIVATE);
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		return prefs.getString(key, "");
 		
 	}
