@@ -103,10 +103,9 @@ public class GetWorkers extends AsyncTask<Void, Void, String> {
         // WORKERS
         spinnerWorkers = (Spinner)activity.findViewById(R.id.spinnerWorkersConfiguration);
 
+        final List<Worker> listWorkers = new ArrayList<>();
         try {
             JSONArray workers = new JSONArray(json);
-
-            List<Worker> listWorkers = new ArrayList<>();
 
             for (int i = 0; i < workers.length(); i++) {
 
@@ -147,7 +146,7 @@ public class GetWorkers extends AsyncTask<Void, Void, String> {
             public void onClick(View v) {
 
                 if(spinnerWorkers.getAdapter().getCount() > 0){
-                    PreferencesTools.savePreferences(activity, "worker", spinnerWorkers.getSelectedItem().toString());
+                    PreferencesTools.savePreferences(activity, "worker", listWorkers.get(spinnerWorkers.getSelectedItemPosition()).getId());
                     PreferencesTools.savePreferences(activity, "rate", spinnerRate.getSelectedItem().toString());
                     PreferencesTools.savePreferences(activity, "namePda", namePda.getText().toString());
 

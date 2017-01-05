@@ -17,9 +17,8 @@ public class Welcome extends FragmentActivity {
 
         setContentView(R.layout.activity_welcome);
 
-        // Si el campo configures es true es porque ya ha iniciado sesion y abrira la caja
+        // Si el campo configured es true es porque ya ha iniciado sesion y abrira la caja
         if (PreferencesTools.getValueOfPreferences(this, "configured").equals("")) {
-
             getSupportFragmentManager().beginTransaction().add(R.id.containerWelcome, new WelcomeFragment()).commit();
         } else {
             Intent intent = new Intent(Welcome.this, Main.class);

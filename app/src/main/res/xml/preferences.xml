@@ -13,9 +13,9 @@
             android:key="worker"
             android:title="@string/worker" />
         <ListPreference
-            android:key="rate"
             android:entries="@array/rates"
             android:entryValues="@array/rates"
+            android:key="rate"
             android:title="@string/rate" />
     </PreferenceCategory>
     <PreferenceCategory
@@ -25,22 +25,16 @@
             android:icon="@mipmap/ic_check_version"
             android:key="check_version"
             android:summary="@string/summary_check_version"
-            android:title="@string/check_version">
-            <intent android:action="android.intent.action.VIEW" />
-        </Preference>
+            android:title="@string/check_version" />
         <Preference
             android:icon="@mipmap/ic_reload"
             android:key="reload_data"
             android:summary="@string/summary_reload_data"
-            android:title="@string/reload_data">
-            <intent android:action="android.intent.action.VIEW" />
-        </Preference>
+            android:title="@string/reload_data" />
         <Preference
             android:icon="@mipmap/ic_logout"
             android:key="logout"
             android:summary="@string/summary_logout"
-            android:title="@string/logout">
-            <intent android:action="android.intent.action.VIEW" />
-        </Preference>
+            android:title="@string/logout" />
     </PreferenceCategory>
 </PreferenceScreen>

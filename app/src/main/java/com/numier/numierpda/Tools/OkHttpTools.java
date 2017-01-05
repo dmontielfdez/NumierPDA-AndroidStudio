@@ -89,4 +89,36 @@ public class OkHttpTools {
 
         return resp;
     }
+
+    public static String getVersion(String url, Activity activity) {
+
+        String resp = "";
+
+        try{
+
+            Builder b = new Builder();
+            b.connectTimeout(20000, TimeUnit.MILLISECONDS);
+            OkHttpClient client = b.build();
+
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
+
+            Response response = client.newCall(request).execute();
+
+            resp = response.body().string();
+
+        } catch (ConnectException e){
+            e.printStackTrace();
+            resp = "{\"mod\" : \"init\", \"status\" : \"ERROR\", \"message\" : \"ConnectException\"}";
+        } catch (IOException e){
+            e.printStackTrace();
+            resp = "{\"mod\" : \"init\", \"status\" : \"ERROR\", \"message\" : \"IOException\"}";
+        } catch (Exception e){
+            e.printStackTrace();
+            resp = "{\"mod\" : \"init\", \"status\" : \"ERROR\", \"message\" : \"Exception\"}";
+        }
+
+        return resp;
+    }
 }

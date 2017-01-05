@@ -38,7 +38,8 @@
         <activity
             android:name=".Activities.Main"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activities.SettingsActivity"></activity>
+        <activity android:name=".Activities.SettingsActivity" />
+        <activity android:name=".Activities.Cash"></activity>
     </application>
 
 </manifest>

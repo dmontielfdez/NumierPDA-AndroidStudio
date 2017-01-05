@@ -63,5 +63,12 @@
     <string name="summary_reload_data">Descarga los ultimos cambios de Numier TPV</string>
     <string name="summary_check_version">Comprueba si hay una nueva versión de Numier PDA</string>
     <string name="general">General</string>
+    <string name="checking_last_version">Comprobando última versión...</string>
+    <string name="no_new_version">No hay ninguna versión para actualizar</string>
+    <string name="downloading_last_version">Descargqando última versión...</string>
+    <string name="fail_update">No se ha podido actualizar</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
