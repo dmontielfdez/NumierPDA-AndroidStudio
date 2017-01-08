@@ -25,9 +25,7 @@ public class Main extends AppCompatActivity {
         } else if(getIntent().getBooleanExtra("RELOAD", false)){
             new Init(Main.this).execute();
         } else{
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.activity_main, new MainFragment())
-                    .commit();
+            getSupportFragmentManager().beginTransaction().add(R.id.activity_main, new MainFragment()).commit();
         }
 
 

@@ -122,13 +122,19 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
         listModifiers = new ArrayList<Modifier>();
     }
 
-    public static void incrementProgress() {
-//        p.incrementProgressBy(1);
-    }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+
+        progress = new ProgressDialog(activity);
+
+        progress.setTitle(activity.getString(R.string.analyzing));
+
+        progress.setMessage(activity.getString(R.string.splash_info_analyzing));
+
+        progress.setCancelable(false);
+        progress.show();
 
         db.getWritableDatabase().execSQL("DELETE FROM WORKER");
         db.getWritableDatabase().execSQL("DELETE FROM PRODUCTSUBPRODUCT");
@@ -138,17 +144,6 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
         db.getWritableDatabase().execSQL("DELETE FROM MENU");
         db.getWritableDatabase().execSQL("DELETE FROM MENU_DET");
         db.getWritableDatabase().execSQL("DELETE FROM MODIFIER");
-
-        progress = new ProgressDialog(activity);
-
-        progress.setTitle(activity.getString(R.string.loading));
-
-        progress.setMessage(activity.getString(R.string.splash_info));
-
-        progress.setCancelable(false);
-        progress.show();
-
-//        p = new ProgressDialog(activity);
 
     }
 
@@ -275,7 +270,6 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
 
             // CATEGORIES
             JSONArray categories = responseJSON.getJSONArray("categories");
-
 
             for (int i = 0; i < categories.length(); i++) {
 
@@ -413,7 +407,7 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
 
                 }
 
-                listCategories.add(new Category(name, code, listProducts));
+                listCategories.add(new Category(code, name, code, listProducts));
 
             }
 

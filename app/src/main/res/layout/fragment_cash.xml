@@ -1,0 +1,329 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#222"
+    android:orientation="vertical">
+
+    <!-- Panel cuenta y comensales -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#fff"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/buttonDinners"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@drawable/selector_button_dinners"
+            android:clickable="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:padding="3dp"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/ic_dinners" />
+
+            <TextView
+                android:id="@+id/numDinners"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="#000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="@string/table"
+            android:textColor="#111"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/billNumber"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:textColor="#111"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <!-- Ultimo producto añadido y boton modificadores -->
+
+    <LinearLayout
+        android:id="@+id/lastItemCash"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#000"
+        android:clickable="true"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/buttonModifier"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/selector_button_modifier"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:src="@mipmap/ic_modifier" />
+
+        <TextView
+            android:id="@+id/lastDetailData"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_last_item_cash"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Panel de botones -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/lineSeparator"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="@drawable/selector_button_separator"
+            android:contentDescription="@string/separator"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_separator" />
+
+        <Button
+            android:id="@+id/buttonMenus"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_button_menus"
+            android:text="Nº Ord."
+            android:textColor="#fff"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/saveBill"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="@drawable/selector_buttons_bill"
+            android:contentDescription="@string/saveBill"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_save" />
+
+        <ImageButton
+            android:id="@+id/pointBill"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="@drawable/selector_buttons_bill"
+            android:contentDescription="@string/pointBill"
+            android:padding="10dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_point" />
+
+        <ImageButton
+            android:id="@+id/getBill"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="@drawable/selector_buttons_bill"
+            android:contentDescription="@string/recoverBill"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_recover" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/supergroups"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#fff"
+        android:visibility="gone"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <Button
+            android:id="@+id/super1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_buttons_super"
+            android:text="1" />
+
+        <Button
+            android:id="@+id/super2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_buttons_super"
+            android:text="2" />
+
+        <Button
+            android:id="@+id/super3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_buttons_super"
+            android:text="3" />
+
+        <Button
+            android:id="@+id/super4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_buttons_super"
+            android:text="4" />
+    </LinearLayout>
+
+    <!-- GridView Categorias y Productos-->
+
+    <GridView
+        android:id="@+id/gridviewItems"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="3dp"
+        android:layout_weight="5"
+        android:background="#222"
+        android:horizontalSpacing="1dp"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="3"
+        android:padding="0dp"
+        android:verticalSpacing="1dp" />
+
+    <!-- Panel volver y cantidades -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:background="#222">
+
+        <ToggleButton
+            android:id="@+id/buttonX2"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:background="@drawable/selector_toglebutton_cash"
+            android:textOff="x2"
+            android:textOn="x2"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <ToggleButton
+            android:id="@+id/buttonX3"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:layout_toRightOf="@id/buttonX2"
+            android:background="@drawable/selector_toglebutton_cash"
+            android:textOff="x3"
+            android:textOn="x3"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/printer"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="2dp"
+            android:layout_toLeftOf="@+id/buttonSearch"
+            android:adjustViewBounds="true"
+            android:background="@drawable/selector_buttons_bill"
+            android:contentDescription="@string/printer"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_printer" />
+
+        <ImageButton
+            android:id="@+id/buttonSearch"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="2dp"
+            android:layout_toLeftOf="@+id/buttonOptions"
+            android:adjustViewBounds="true"
+            android:background="@drawable/selector_buttons_bill"
+            android:contentDescription="@string/search"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_search" />
+
+        <ImageButton
+            android:id="@+id/buttonOptions"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="2dp"
+            android:layout_toLeftOf="@+id/exitCash"
+            android:adjustViewBounds="true"
+            android:background="@drawable/selector_buttons_bill"
+            android:contentDescription="@string/options"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_options" />
+
+        <ImageButton
+            android:id="@+id/exitCash"
+            android:layout_width="75dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:background="@drawable/selector_buttons_bill"
+            android:contentDescription="@string/back"
+            android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_close" />
+    </RelativeLayout>
+
+</LinearLayout>

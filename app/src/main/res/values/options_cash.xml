@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="options_cash">
+        <item>Mandar mensaje a impresora</item>
+        <item>Aplicar descuento</item>
+        <item>Artículo no definido</item>
+        <item>Reenviar comanda completa</item>
+    </string-array>
+</resources>

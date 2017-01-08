@@ -1,13 +1,8 @@
 package com.numier.numierpda.Tools;
 
 
+import java.text.DecimalFormat;
 
-/**
- * Pinta y retoca los precios para añadirles símbolos (€) o palabras (precio,
- * total).
- * 
- * 
- */
 public class ConversionTools {
 
 //	public static String getFormatAmount(double amount) {
@@ -30,50 +25,48 @@ public class ConversionTools {
 //		return formatAmount;
 //	}
 //
-//	public static String getFormatPrice(double price, boolean showLabel) {
-//
-//		DecimalFormat df = new DecimalFormat("0.00");
-//
-//		String formatPrice;
-//
-//		// Compruebo el valor del precio y en caso de ser menor a 1 cambio la
-//		// manera en la que lo formateo
-//		if (price < -1.00) {
-//			if (showLabel)
-//				formatPrice = "Precio: " + df.format(price) + " €";
-//
-//			else
-//				formatPrice = df.format(price) + "€";
-//		}
-//
-//		else if (price > -1.00 && price < 0) {
-//
-//			if (showLabel)
-//				formatPrice = "Precio: " + price + " €";
-//
-//			else
-//				formatPrice = df.format(price) + "€";
-//
-//		}
-//
-//		else if (price < 1.00) {
-//
-//			if (showLabel)
-//				formatPrice = "Precio: 0" + df.format(price) + " €";
-//
-//			else
-//				formatPrice = df.format(price) + "€";
-//
-//		} else {
-//
-//			if (showLabel)
-//				formatPrice = "Precio: " + df.format(price) + " €";
-//
-//			else
-//				formatPrice = df.format(price) + "€";
-//		}
-//		return formatPrice;
-//	}
+	public static String getFormatPrice(double price, boolean showLabel) {
+
+		DecimalFormat df = new DecimalFormat("0.00");
+
+		String formatPrice;
+
+		if (price < -1.00) {
+			if (showLabel)
+				formatPrice = "Precio: " + df.format(price) + " €";
+
+			else
+				formatPrice = df.format(price) + "€";
+		}
+
+		else if (price > -1.00 && price < 0) {
+
+			if (showLabel)
+				formatPrice = "Precio: " + price + " €";
+
+			else
+				formatPrice = df.format(price) + "€";
+
+		}
+
+		else if (price < 1.00) {
+
+			if (showLabel)
+				formatPrice = "Precio: 0" + df.format(price) + " €";
+
+			else
+				formatPrice = df.format(price) + "€";
+
+		} else {
+
+			if (showLabel)
+				formatPrice = "Precio: " + df.format(price) + " €";
+
+			else
+				formatPrice = df.format(price) + "€";
+		}
+		return formatPrice;
+	}
 //
 //	/**
 //	 * Versión para tickets

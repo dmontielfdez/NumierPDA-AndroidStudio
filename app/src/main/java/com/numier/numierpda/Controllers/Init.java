@@ -56,25 +56,29 @@ public class Init extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String resp) {
-        progress.dismiss();
+
         Intent intent = new Intent(activity, Welcome.class);
 
         if(!resp.equals("")){
             try {
                 JSONObject json = new JSONObject(resp);
-
                 if (json.getString("status").equals("OK")) {
                     new NumierApi(activity, json.toString()).execute();
+                    progress.dismiss();
                 } else if (json.getString("status").equals("error")) {
+                    progress.dismiss();
                     DialogsTools.launchCustomDialog(activity, json.getString("message"));
                 } else {
+                    progress.dismiss();
                     DialogsTools.launchServerDialog(activity);
                 }
             } catch (JSONException e) {
+                progress.dismiss();
                 e.printStackTrace();
 
             }
         } else{
+            progress.dismiss();
             DialogsTools.launchServerDialog(activity);
         }
     }

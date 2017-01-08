@@ -39,7 +39,11 @@
             android:name=".Activities.Main"
             android:screenOrientation="portrait" />
         <activity android:name=".Activities.SettingsActivity" />
-        <activity android:name=".Activities.Cash"></activity>
+        <activity
+            android:name=".Activities.Cash"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activities.Menu" />
+        <activity android:name=".Activities.Seling"></activity>
     </application>
 
 </manifest>

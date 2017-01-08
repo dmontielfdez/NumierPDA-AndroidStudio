@@ -67,8 +67,31 @@
     <string name="no_new_version">No hay ninguna versión para actualizar</string>
     <string name="downloading_last_version">Descargqando última versión...</string>
     <string name="fail_update">No se ha podido actualizar</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="separator">Separador</string>
+    <string name="saveBill">Guardar cuenta</string>
+    <string name="pointBill">Apuntar cuenta</string>
+    <string name="recoverBill">Recuperar cuenta</string>
+    <string name="printer">Impresora</string>
+    <string name="options">Opciones</string>
+    <string name="search">Buscar</string>
+    <string name="back">Atrás</string>
+    <string name="num_mesa">Num. Mesa</string>
+    <string name="table">Mesa: </string>
+    <string name="confirmation">Confirmación</string>
+    <string name="alert_save_bill">Hay una cuenta en pantalla que debe guardar antes de volver.\n\n¿GUARDAR AHORA?\n</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
+    <string name="select_option">Seleccione una opción</string>
+    <string name="name_product">Nombre producto</string>
+    <string name="search_product">Buscar producto</string>
+    <string name="num_dinners">Nº de comensales</string>
+    <string name="analyzing">Analizando</string>
+    <string name="splash_info_analyzing">Analizando datos del sistema Numier TPV. \n\nEste proceso puede tardar unos minutos. \n\nEspere por favor.</string>
+    <string name="total">Total:</string>
+    <string name="annul">Anular</string>
+    <string name="charge">Cobrar</string>
+    <string name="text_size">Tamaño del texto</string>
+    <string name="number_columns">Numero de columnas</string>
+    <string name="optiones_gui">Opciones de interfaz</string>
 
 </resources>

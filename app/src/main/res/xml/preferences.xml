@@ -19,6 +19,22 @@
             android:title="@string/rate" />
     </PreferenceCategory>
     <PreferenceCategory
+        android:key="screenTools"
+        android:title="@string/optiones_gui">
+        <ListPreference
+            android:defaultValue="3"
+            android:entries="@array/num_columns"
+            android:entryValues="@array/num_columns"
+            android:key="numberColumns"
+            android:title="@string/number_columns" />
+        <ListPreference
+            android:defaultValue="15"
+            android:entries="@array/text_size"
+            android:entryValues="@array/text_size_values"
+            android:key="textSize"
+            android:title="@string/text_size" />
+    </PreferenceCategory>
+    <PreferenceCategory
         android:key="@string/tools"
         android:title="@string/tools">
         <Preference

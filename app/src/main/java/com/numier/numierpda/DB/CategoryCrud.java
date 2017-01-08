@@ -13,10 +13,8 @@ import com.numier.numierpda.Models.Category;
 
 public class CategoryCrud {
 
-	// Atributos
 	private Database db;
 
-	// Constructor
 	public CategoryCrud(Database db) {
 		this.db = db;
 	}
@@ -45,12 +43,9 @@ public class CategoryCrud {
 
 		List<Category> categories = new ArrayList<Category>();
 
-		Cursor c = db.getReadableDatabase().rawQuery("SELECT * FROM CATEGORY",
-				null);
+		Cursor c = db.getReadableDatabase().rawQuery("SELECT * FROM CATEGORY", null);
 
-		// Nos aseguramos de que existe al menos un registro
 		if (c.moveToFirst()) {
-			// Recorremos el cursor hasta que no haya m�s registros
 			do {
 				categories.add(new Category(c.getString(0), c.getString(1)));
 			} while (c.moveToNext());
@@ -78,7 +73,7 @@ public class CategoryCrud {
 			break;
 
 		case 4:
-			xcond = "(code  = 'u' or code  = 'v' or code  = 'w' or code  = 'x' or code  = 'y' or code  = 'z' or code  = '�' or code  = '�' or code  = '�' or code  = '�')";
+			xcond = "(code  = 'u' or code  = 'v' or code  = 'w' or code  = 'x' or code  = 'y' or code  = 'z' or code  = 'á' or code  = 'é' or code  = 'í' or code  = 'ó')";
 			break;
 
 		default:
@@ -87,8 +82,7 @@ public class CategoryCrud {
 		
 		List<Category> categories = new ArrayList<Category>();
 
-		Cursor c = db.getReadableDatabase().rawQuery("SELECT * FROM CATEGORY where "+xcond,
-				null);
+		Cursor c = db.getReadableDatabase().rawQuery("SELECT * FROM CATEGORY where "+xcond, null);
 
 		if (c.moveToFirst()) {
 			do {

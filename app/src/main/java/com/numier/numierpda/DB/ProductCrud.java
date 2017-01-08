@@ -93,8 +93,7 @@ public class ProductCrud {
     public List<Product> findByCategory(String idCategory) {
         List<Product> products = new ArrayList<Product>();
 
-        Cursor c = db.getReadableDatabase().rawQuery(
-                "SELECT * FROM PRODUCT WHERE ID_CATEGORY='" + idCategory + "'", null);
+        Cursor c = db.getReadableDatabase().rawQuery("SELECT * FROM PRODUCT WHERE ID_CATEGORY='" + idCategory + "'", null);
 
         // Nos aseguramos de que existe al menos un registro
         if (c.moveToFirst()) {

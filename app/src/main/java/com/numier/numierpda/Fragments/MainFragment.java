@@ -158,7 +158,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
             builder.setMessage(getActivity().getString(R.string.confirm_cancel))
-                    .setTitle("Confirmación")
+                    .setTitle(getActivity().getString(R.string.confirmation))
                     .setPositiveButton(getActivity().getString(R.string.accept),
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
