@@ -329,7 +329,7 @@ public class Product {
 		this.category = category;
 	}
 
-	public int getSubproducts() {
+	public int haveSubproducts() {
 		return haveSubproducts;
 	}
 

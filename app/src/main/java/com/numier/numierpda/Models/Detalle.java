@@ -8,7 +8,7 @@ public class Detalle {
 
 	// Atributos
 	private int order, printed, isSeling;
-	private double price, amount, quantity, priceExtra;
+	private double price, amount, quantity, priceExtraSubproduct, discount;
 	private String rate, option, productName, idProduct, title, numOrden;
 	private boolean decimalQuantity, noImprimir;
 	private List<Subproduct> listSubProducts;
@@ -38,6 +38,7 @@ public class Detalle {
 		this.numOrden = numOrden;
 		this.listModifier = new ArrayList<Modifier>();
 		this.isSeling = 0;
+		this.discount = 0;
 	}
 
 	public Detalle() {
@@ -58,6 +59,7 @@ public class Detalle {
 		this.numOrden = "";
 		this.listModifier = new ArrayList<Modifier>();
 		this.isSeling = 0;
+		this.discount = 0;
 	}
 	
 	
@@ -65,8 +67,15 @@ public class Detalle {
 	
 
 	// Getters y Setters
-	
-	
+
+
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
 
 	public int getIsSeling() {
 		return isSeling;
@@ -212,12 +221,12 @@ public class Detalle {
 		this.title = title;
 	}
 
-	public double getPriceExtra() {
-		return priceExtra;
+	public double getPriceExtraSubproduct() {
+		return priceExtraSubproduct;
 	}
 
-	public void setPriceExtra(double priceExtra) {
-		this.priceExtra = priceExtra;
+	public void setPriceExtraSubproduct(double priceExtraSubproduct) {
+		this.priceExtraSubproduct = priceExtraSubproduct;
 	}
 
 	public int[] getIdSubProducts() {
@@ -232,7 +241,7 @@ public class Detalle {
 	public String toString() {
 		return "Detalle [order=" + order + ", printed=" + printed + ", price="
 				+ price + ", amount=" + amount + ", quantity=" + quantity
-				+ ", priceExtra=" + priceExtra + ", rate=" + rate + ", option="
+				+ ", priceExtraSubproduct=" + priceExtraSubproduct + ", rate=" + rate + ", option="
 				+ option + ", productName=" + productName + ", idProduct="
 				+ idProduct + ", title=" + title + ", decimalQuantity="
 				+ decimalQuantity + ", listSubProducts=" + listSubProducts

@@ -44,6 +44,17 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
     public static final int __WORKER_PASS = 1;
     public static final int __WORKER_NAME = 2;
 
+
+    // ACCOUNT
+    public static final int __BILL_ID = 0;
+    public static final int __BILL_NUMBER = 1;
+    public static final int __BILL_NAME = 2;
+    public static final int __BILL_DINNER = 3;
+    public static final int __BILL_AMOUNT = 4;
+    public static final int __BILL_PRINTED = 5;
+    public static final int __BILL_LOCKED = 6;
+    public static final int __BILL_PRINTERS = 7;
+
     // PRODUCTS
     public static final int __PRODUCT_ID = 0;
     public static final int __PRODUCT_NAME = 1;
@@ -94,10 +105,20 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
     public static final int __PRODUCT_MENU_TITLE_6 = 5;
 
     public static final int __PRODUCT_SUBPRODUCT_ID_SUBPRODUCT = 0;
-    public static final int __PRODUCT_SUBPRODUCT_INCLUDED = 1;
+    public static final int __PRODUCT_SUBPRODUCT_OPCIONAL = 1;
     public static final int __PRODUCT_SUBPRODUCT_PRICE = 2;
     public static final int __PRODUCT_SUBPRODUCT_ORDEN = 3;
     public static final int __PRODUCT_SUBPRODUCT_TYPE = 4;
+
+    public static final int __DETAIL_PRODUCT_ID = 0;
+    public static final int __DETAIL_PRICE = 1;
+    public static final int __DETAIL_QUANTITY = 2;
+    public static final int __DETAIL_AMOUNT = 3;
+    public static final int __DETAIL_RATE = 4;
+    public static final int __DETAIL_SUBPRODUCTS = 5;
+    public static final int __DETAIL_OPTION = 6;
+    public static final int __DETAIL_MODIFIERS = 7;
+    public static final int __DETAIL_NUM_ORDEN = 8;
 
     public ProgressDialog progress;
 
@@ -300,7 +321,7 @@ public class NumierApi extends AsyncTask<Void, Void, Void> {
                             listProductsSubproducts.add(new ProductSubproduct(
                                     jsonSubArray.getString(__PRODUCT_ID),
                                     subproducts.getInt(__PRODUCT_SUBPRODUCT_ID_SUBPRODUCT),
-                                    subproducts.getInt(__PRODUCT_SUBPRODUCT_INCLUDED),
+                                    subproducts.getInt(__PRODUCT_SUBPRODUCT_OPCIONAL),
                                     subproducts.getDouble(__PRODUCT_SUBPRODUCT_PRICE),
                                     subproducts.getInt(__PRODUCT_SUBPRODUCT_ORDEN),
                                     subproducts.getString(__PRODUCT_SUBPRODUCT_TYPE)));

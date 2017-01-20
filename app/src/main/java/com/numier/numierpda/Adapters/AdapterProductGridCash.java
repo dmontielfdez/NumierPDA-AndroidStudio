@@ -46,7 +46,9 @@ public class AdapterProductGridCash extends ArrayAdapter<Product> {
         this.itemLayout.setBackgroundResource(findColorByString(this.products.get(position).getColor()));
 
         String textSize = PreferencesTools.getValueOfPreferences(activity, "textSize");
-        textoItem.setTextSize(TypedValue.COMPLEX_UNIT_SP, Integer.parseInt(textSize));
+        if(!textSize.equals("")){
+            textoItem.setTextSize(TypedValue.COMPLEX_UNIT_SP, Integer.parseInt(textSize));
+        }
 
         return vista;
     }

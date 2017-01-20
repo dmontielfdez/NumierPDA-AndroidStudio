@@ -13,15 +13,12 @@ import com.numier.numierpda.Models.Subproduct;
 
 public class SubproductCrud {
 
-    // Atributos
     private Database db;
 
-    // Constructor
     public SubproductCrud(Database db) {
         this.db = db;
     }
 
-    // Inserción de datos
     public int insert(Subproduct s) {
         int c = 0;
         try {
@@ -47,12 +44,9 @@ public class SubproductCrud {
 
         List<Subproduct> subproducts = new ArrayList<Subproduct>();
 
-        Cursor c = db.getReadableDatabase().rawQuery("SELECT * FROM SUBPRODUCT",
-                null);
+        Cursor c = db.getReadableDatabase().rawQuery("SELECT * FROM SUBPRODUCT", null);
 
-        // Nos aseguramos de que existe al menos un registro
         if (c.moveToFirst()) {
-            // Recorremos el cursor hasta que no haya más registros
             do {
                 subproducts.add(new Subproduct(c.getInt(0), c.getString(1), c
                         .getDouble(2)));
@@ -67,13 +61,9 @@ public class SubproductCrud {
 
         Subproduct subproduct = null;
 
-        Cursor c = db.getReadableDatabase().rawQuery(
-                "SELECT * FROM SUBPRODUCT WHERE ID_SUBPRODUCT=" + idSubProduct,
-                null);
+        Cursor c = db.getReadableDatabase().rawQuery("SELECT * FROM SUBPRODUCT WHERE ID_SUBPRODUCT=" + idSubProduct, null);
 
-        // Nos aseguramos de que existe al menos un registro
         if (c.moveToFirst()) {
-            // Recorremos el cursor hasta que no haya más registros
             do {
                 subproduct = new Subproduct(c.getInt(0), c.getString(1),
                         c.getDouble(2));

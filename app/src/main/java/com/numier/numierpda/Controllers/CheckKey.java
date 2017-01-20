@@ -64,7 +64,7 @@ public class CheckKey extends AsyncTask<Void, Void, String> {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                DialogsTools.launchCustomDialog(activity, resp);
+                DialogsTools.launchCustomDialog(activity, e.getMessage()+" - "+resp);
             }
         } else{
             DialogsTools.launchServerDialog(activity);

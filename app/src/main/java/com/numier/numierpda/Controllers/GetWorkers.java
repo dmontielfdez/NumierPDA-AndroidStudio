@@ -43,7 +43,6 @@ public class GetWorkers extends AsyncTask<Void, Void, String> {
         this.activity = activity;
         key = PreferencesTools.getValueOfPreferences(activity, "key");
         url = PreferencesTools.getValueOfPreferences(activity, "base_url");
-
     }
 
     @Override
@@ -62,8 +61,6 @@ public class GetWorkers extends AsyncTask<Void, Void, String> {
         } else{
             return "";
         }
-
-
     }
 
     @Override
@@ -84,7 +81,7 @@ public class GetWorkers extends AsyncTask<Void, Void, String> {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-                DialogsTools.launchCustomDialog(activity, resp);
+                DialogsTools.launchCustomDialog(activity, e.getMessage()+" - "+resp);
             }
         } else{
             DialogsTools.launchServerDialog(activity);

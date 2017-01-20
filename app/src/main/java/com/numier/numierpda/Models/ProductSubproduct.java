@@ -3,15 +3,15 @@ package com.numier.numierpda.Models;
 public class ProductSubproduct {
 
 	// Atributos
-	private int idSubproduct, included, orden;
+	private int idSubproduct, opcional, orden;
 	private String idProduct, type;
 	private double price;
 
 	// Constructores
-	public ProductSubproduct(String idProduct, int idSubproduct, int included, double price, int orden, String type) {
+	public ProductSubproduct(String idProduct, int idSubproduct, int opcional, double price, int orden, String type) {
 		this.idProduct = idProduct;
 		this.idSubproduct = idSubproduct;
-		this.included = included;
+		this.opcional = opcional;
 		this.price = price;
 		this.orden = orden;
 		this.type = type;
@@ -73,18 +73,18 @@ public class ProductSubproduct {
 		this.idSubproduct = idSubproduct;
 	}
 
-	public int getIncluded() {
-		return included;
+	public int getOpcional() {
+		return opcional;
 	}
 
-	public void setIncluded(int included) {
-		this.included = included;
+	public void setOpcional(int opcional) {
+		this.opcional = opcional;
 	}
 
 	@Override
 	public String toString() {
 		return "ProductSubproduct [idProduct=" + idProduct + ", idSubproduct="
-				+ idSubproduct + ", included=" + included + "]";
+				+ idSubproduct + ", opcional=" + opcional + "]";
 	}
 
 }

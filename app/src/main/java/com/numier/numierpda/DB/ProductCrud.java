@@ -6,9 +6,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.util.Log;
 
 import com.numier.numierpda.Controllers.NumierApi;
 import com.numier.numierpda.Models.Product;
@@ -54,7 +52,7 @@ public class ProductCrud {
             values.put("VALUE_RATE4_OPTION", p.getRateName4());
             values.put("ASK_PRICE", p.getAskPrice());
             values.put("ASK_WEIGHT", p.getAskWeight());
-            values.put("SUBPRODUCTS", p.getSubproducts());
+            values.put("SUBPRODUCTS", p.haveSubproducts());
             values.put("NUMBER_SUBPRODUCTS", p.getNumberSubproducts());
             values.put("DISCOUNT", p.getDiscount());
             values.put("ABSOLUT_PRICE", p.getAbsolutPrice());

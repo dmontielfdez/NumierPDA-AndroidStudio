@@ -18,9 +18,12 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.numier.numierpda.Activities.Cash;
+import com.numier.numierpda.Fragments.CashFragment;
 import com.numier.numierpda.Models.Product;
 import com.numier.numierpda.R;
 import com.numier.numierpda.Tools.ConversionTools;
+import com.numier.numierpda.Tools.IntakeTools;
 
 
 public class DialogFilterSearch extends DialogFragment {
@@ -100,7 +103,7 @@ public class DialogFilterSearch extends DialogFragment {
 					}
 				}
 
-//				IntakeUtils.generateIntake(getActivity(), productoElegido, 1, CashFragment.buttonMenus.getText().toString(), ((Cash)getActivity()).getCashFragment().getHeader().getRate(), true);
+				IntakeTools.generateIntake(getActivity(), productoElegido, Cash.getCashFragment().getQuantity(), Cash.getCashFragment().getButtonMenus().getText().toString());
 
 				getDialog().cancel();
 				

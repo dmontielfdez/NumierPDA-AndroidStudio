@@ -37,7 +37,10 @@ public class AdapterCategoryGridCash extends ArrayAdapter<Category> {
 
 		// Pongo el tamaño de texto que esta definido en los settings
 		String textSize = PreferencesTools.getValueOfPreferences(activity, "textSize");
-		textoItem.setTextSize(TypedValue.COMPLEX_UNIT_SP, Integer.parseInt(textSize));
+		if(!textSize.equals("")){
+			textoItem.setTextSize(TypedValue.COMPLEX_UNIT_SP, Integer.parseInt(textSize));
+
+		}
 
 		return vista;
 	}

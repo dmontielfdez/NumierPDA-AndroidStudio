@@ -93,5 +93,37 @@
     <string name="text_size">Tamaño del texto</string>
     <string name="number_columns">Numero de columnas</string>
     <string name="optiones_gui">Opciones de interfaz</string>
+    <string name="specify_price_product">Especifique el precio del producto</string>
+    <string name="specify_weight_product">Especifique el peso del producto</string>
+    <string name="select_num_subproduct">Seleccione Subproducto Nº</string>
+    <string name="messageHintDialog">Puede escribir un mensaje</string>
+    <string name="input_message_product">Introduzca un mensaje para el producto</string>
+    <string name="product_not_defined">Artículo no definido</string>
+    <string name="specify_discount">Especifique el descuento</string>
+    <string name="fail_discount_100">El descuento no puede ser mayor de 100</string>
+    <string name="discount_delete">Descuento eliminado</string>
+    <string name="info_delete_discount">El descuento se borrará, ¿Desea continuar?</string>
+    <string name="delete_line">Eliminar línea</string>
+    <string name="modify_uds">Modificar cantidad</string>
+    <string name="modify_price">Modificar precio</string>
+    <string name="modify_num_plato">Modificar Num Plato</string>
+    <string name="message_to_printer">Mensaje a impresora</string>
+    <string name="select_modifiers">Seleccionar modificadores</string>
+    <string name="see_description">Ver descripción</string>
+    <string name="info_delete_item">La linea de pedido se borrará, ¿Desea continuar?</string>
+    <string name="info_not_authorized_delete_item">ATENCIÓN: No puede eliminar este producto. Debe hacerlo desde el TPV.</string>
+    <string name="info_not_authorized_modify_item">ATENCIÓN: No puede modificar este producto. Debe hacerlo desde el TPV.</string>
+    <string name="weight_not_zero">El peso no puede ser 0</string>
+    <string name="uds_not_zero">Las unidades no pueden ser 0</string>
+    <string name="specify_uds_product">Especifique las unidades del producto</string>
+    <string name="specify_num_plato_product">Especifique el numero de plato del producto</string>
+    <string name="product_without_descripction">Este producto no tiene descripción</string>
+    <string name="info_select_product_before_modifer">Debe seleccionar un producto antes de elegir un modificador</string>
+    <string name="fail_header_without_details">No puede apuntar una cuenta sin detalles</string>
+    <string name="alert_get_bill_and_save">Va a recuperar una cuenta, ¿Desea guardar la que está en pantalla primero?</string>
+    <string name="getting_accounts">Recuperando cuentas</string>
+    <string name="get_account">Recuperar cuenta</string>
+    <string name="getting_account">Recuperando los datos de la cuenta</string>
+
 
 </resources>

@@ -74,6 +74,7 @@ public class Init extends AsyncTask<Void, Void, String> {
                 }
             } catch (JSONException e) {
                 progress.dismiss();
+                DialogsTools.launchCustomDialog(activity, e.getMessage()+" - "+resp);
                 e.printStackTrace();
 
             }

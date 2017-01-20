@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.Vibrator;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -29,24 +30,37 @@ import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.numier.numierpda.Activities.Cash;
 import com.numier.numierpda.Activities.Menu;
 import com.numier.numierpda.Activities.Seling;
 import com.numier.numierpda.Activities.Welcome;
 import com.numier.numierpda.Adapters.AdapterCategoryGridCash;
+import com.numier.numierpda.Adapters.AdapterListTicketFragment;
 import com.numier.numierpda.Adapters.AdapterProductGridCash;
+import com.numier.numierpda.Controllers.GetAccountList;
 import com.numier.numierpda.DB.CategoryCrud;
 import com.numier.numierpda.DB.Database;
 import com.numier.numierpda.DB.ProductCrud;
 import com.numier.numierpda.Dialogs.DialogAlertExit;
+import com.numier.numierpda.Dialogs.DialogAlertGetBill;
+import com.numier.numierpda.Dialogs.DialogDeleteDiscount;
 import com.numier.numierpda.Dialogs.DialogDinners;
 import com.numier.numierpda.Dialogs.DialogFilterSearch;
+import com.numier.numierpda.Dialogs.DialogDiscount;
+import com.numier.numierpda.Dialogs.DialogModifiers;
+import com.numier.numierpda.Dialogs.DialogOptionItem;
+import com.numier.numierpda.Dialogs.DialogProductNotDefined;
 import com.numier.numierpda.Models.Category;
+import com.numier.numierpda.Models.Detalle;
 import com.numier.numierpda.Models.Header;
 import com.numier.numierpda.Models.Product;
 import com.numier.numierpda.R;
 import com.numier.numierpda.Tools.ConversionTools;
+import com.numier.numierpda.Tools.DialogsTools;
+import com.numier.numierpda.Tools.IntakeTools;
 import com.numier.numierpda.Tools.PreferencesTools;
 
 import java.util.ArrayList;
@@ -55,21 +69,22 @@ import java.util.List;
 
 public class CashFragment extends Fragment implements OnClickListener, OnItemClickListener, OnCheckedChangeListener {
 
-    Activity activity;
+    static Activity activity;
+    private Database db;
 
     int idHeader, numBill;
     String nameBill;
 
     int quantity;
-    boolean inCategory;
-    boolean automatic, isChanged;
-    List<Category> categories;
+    static boolean inCategory;
+    boolean isChanged;
+    static List<Category> categories;
     List<Product> products;
     Header header;
     Vibrator vi;
     double cambio;
 
-    private ImageButton buttonBack;
+    private static ImageButton buttonBack;
     private ImageButton buttonSeparator;
     private ImageButton getBill;
     private ImageButton saveBill;
@@ -78,12 +93,12 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
     private ImageButton printerBill;
     private ImageButton buttonSearch;
     private ImageButton buttonModifier;
-    private Button buttonMenus;
-    private ToggleButton buttonX2;
-    private ToggleButton buttonX3;
-    private GridView gridView;
+    public Button buttonMenus;
+    private static ToggleButton buttonX2;
+    private static ToggleButton buttonX3;
+    private static GridView gridView;
     private TextView billNumber;
-    private TextView lastItem;
+    public static TextView lastItem;
     public static TextView numDinners;
     private ProgressDialog progress;
     private LinearLayout buttonDinners;
@@ -95,7 +110,7 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
     public Button super3;
     public Button super4;
     public static int superGrupoSelect = 1;
-    String displaySupergroups;
+    static String displaySupergroups;
 
     private long mLastClickTime = 0;
 
@@ -113,9 +128,10 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
 
         activity = getActivity();
         quantity = 1;
-        automatic = true;
         header = new Header();
         isChanged = false;
+
+        db = new Database(activity);
 
         this.buttonBack = (ImageButton) view.findViewById(R.id.exitCash);
         this.buttonSearch = (ImageButton) view.findViewById(R.id.buttonSearch);
@@ -144,8 +160,9 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
 
         // Pongo las columnas que esta definido en los settings
         String numberColumns = PreferencesTools.getValueOfPreferences(getActivity(), "numberColumns");
-        gridView.setNumColumns(Integer.parseInt(numberColumns));
-
+        if (!numberColumns.equals("")) {
+            gridView.setNumColumns(Integer.parseInt(numberColumns));
+        }
 
         // Supergrupos
 
@@ -183,6 +200,7 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
         this.buttonSearch.setOnClickListener(this);
         this.buttonModifier.setOnClickListener(this);
         this.pointBill.setOnClickListener(this);
+        this.lastItem.setOnClickListener(this);
 
         vi = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
@@ -252,6 +270,22 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
                 launchingFilterDialog();
                 break;
 
+            case R.id.lastDetailData:
+
+                vi.vibrate(50);
+
+                if (this.header.getDetails().size() > 0) {
+                    if (this.header.getDetails().get(0).getIdProduct().equals("DDDDD") == true) {
+                        new DialogDeleteDiscount(this.header.getDetails(), 0).show(getActivity().getSupportFragmentManager(), "dialog");
+                    } else {
+                        DialogOptionItem dialog = new DialogOptionItem(this.header.getDetails(), 0);
+
+                        dialog.show(getActivity().getSupportFragmentManager(), "dialog");
+                    }
+                }
+
+                break;
+
             case R.id.buttonMenus:
 
                 vi.vibrate(50);
@@ -280,20 +314,84 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
 
                 break;
 
+            case R.id.getBill:
+
+                vi.vibrate(50);
+
+                if (getHeader().getIdHeader() == 0) {
+
+                    if (header.getDetails().size() > 0) {
+                        new DialogAlertGetBill().show(getActivity().getSupportFragmentManager(), "dial");
+
+                    } else {
+                        launchGetBill(1);
+                    }
+
+                } else {
+
+                    if(header.getDetails().isEmpty()){
+                        DialogsTools.launchCustomDialog(getActivity(), getString(R.string.fail_header_without_details));
+                        break;
+                    }
+
+                    // Aqui siempre tendre que pasar el id para desbloquear
+                    if (isChanged) {
+                        new DialogAlertGetBill().show(getActivity().getSupportFragmentManager(), "dial");
+                    } else {
+                        launchGetBill(1);
+                    }
+
+                }
+                break;
+
+            case R.id.lineSeparator:
+
+                vi.vibrate(50);
+
+                Product separator = new Product("*****", "-------------------------------------");
+
+                IntakeTools.generateIntake(getActivity(), separator, 1, "");
+
+                break;
+
             case R.id.buttonDinners:
 
                 // Previene el doble click
-                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 200) {
                     return;
                 }
                 mLastClickTime = SystemClock.elapsedRealtime();
 
                 vi.vibrate(50);
-//                new DialogDinners(Integer.parseInt(numDinners.getText().toString())).show(getActivity().getSupportFragmentManager(), "dialogBillNumber");
 
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
-                Prueba frag = new Prueba(Integer.parseInt(numDinners.getText().toString()));
+                DialogDinners frag = new DialogDinners(Integer.parseInt(numDinners.getText().toString()));
                 frag.show(ft, "dialogDinners");
+                break;
+
+            case R.id.buttonModifier:
+
+                // Previene el doble click
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 200) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+
+                vi.vibrate(50);
+
+                if (this.header.getDetails().size() != 0) {
+                    if (!this.header.getDetails().get(0).getIdProduct().equals("*****")) {
+                        if (this.header.getDetails().get(0).getIdProduct() != "ZZZZZ") {
+                            new DialogModifiers(getActivity(), this.header.getDetails(), 0).show(getActivity().getSupportFragmentManager(), "dialogModifier");
+                        }
+
+                    } else {
+                        Toast.makeText(getActivity(), R.string.info_select_product_before_modifer, Toast.LENGTH_LONG).show();
+                    }
+                } else {
+                    Toast.makeText(getActivity(), R.string.info_select_product_before_modifer, Toast.LENGTH_LONG).show();
+                }
+
                 break;
 
             case R.id.super1:
@@ -322,8 +420,18 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
         }
     }
 
+    public void launchGetBill(int option) {
+        new GetAccountList(getActivity(), option).execute();
+    }
+
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // Previene el doble click
+        if (SystemClock.elapsedRealtime() - mLastClickTime < 200) {
+            return;
+        }
+        mLastClickTime = SystemClock.elapsedRealtime();
+
         vi.vibrate(50);
 
         if (inCategory) {
@@ -334,11 +442,9 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
 
             if (products.get(position).getIsMenu() == 1) {
 
-                // Instanciamos una lista para guardar las tarifas encontradas
                 List<String> rates = new ArrayList<String>();
 
-                // Compruebo si alguna tarifa debe de ser preguntada, en caso de serlo
-                // lanzaré un diálogo
+                // Compruebo si alguna tarifa debe de ser preguntada, en caso de serlo lanzaré un diálogo
                 if (p.getRateOption1() == 1) {
                     rates.add(p.getRateName1() + " - " + ConversionTools.getFormatPrice(p.getRate1(), false));
                 }
@@ -369,11 +475,8 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
                 intent.putExtra("haveRate", false);
                 startActivity(intent);
             } else {
-//                IntakeUtils.generateIntake(getActivity(), products.get(position), quantity, buttonMenus.getText().toString(), this.header.getRate(), true);
+                IntakeTools.generateIntake(getActivity(), products.get(position), quantity, buttonMenus.getText().toString());
             }
-
-
-            //			IntakeUtils.generateIntake(getActivity(), products.get(position), quantity, buttonMenus.getText().toString(), this.header.getRate());
 
         }
     }
@@ -403,24 +506,166 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
         return "";
     }
 
+    public void setDetailsToHeader(List<Detalle> details, Detalle lastDetail) {
+
+        // Hilo que cambia el color de fondo del last item
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getActivity().runOnUiThread(new Runnable() {
+                    @SuppressWarnings("deprecation")
+                    @Override
+                    public void run() {
+                        lastItem.setBackgroundDrawable(getResources().getDrawable(R.drawable.style_last_item_cash_pressed));
+                    }
+                });
+
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+
+                    e.printStackTrace();
+                }
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @SuppressWarnings("deprecation")
+                    @Override
+                    public void run() {
+                        lastItem.setBackgroundDrawable(getResources().getDrawable(R.drawable.selector_last_item_cash));
+                    }
+                });
+            }
+        }).start();
+
+        // Guardo los detalles en el header
+        header.setDetails(details);
+
+        // Devuelve el precio sumado de un conjunto de Details
+        double amount = calculatePrice(details);
+
+        // Fijo el precio que acabo de obtener al HEADER ()
+        header.setAmount(amount);
+
+        // Asigno a la vista los datos
+        if (details.size() == 0) {
+            Cash.getTicketFragment().setAmount(ConversionTools.getFormatPrice(0, false));
+            billNumber.setText("");
+            lastItem.setText("");
+        } else {
+            Cash.getTicketFragment().setAmount(ConversionTools.getFormatPrice(header.getAmount(), false));
+
+            if (header.getBillName() != null && !header.getBillName().equalsIgnoreCase("")) {
+                if (header.getBillName().length() < 10) {
+                    billNumber.setText(header.getBillName());
+                } else {
+                    billNumber.setText(header.getBillName().substring(0, 10));
+                }
+            } else {
+                billNumber.setText(Integer.toString(header.getNumBill()));
+            }
+
+            if (lastDetail != null) {
+                String numOrden = "";
+                if (!lastDetail.getNumOrden().equals("")) {
+                    numOrden = lastDetail.getNumOrden() + " - ";
+                }
+
+                if (lastDetail.getIdProduct().equals("*****")) {
+                    lastItem.setText("-----------");
+                } else if (lastDetail.getIdProduct().equals("ZZZZZ")) {
+                    lastItem.setText(ConversionTools.getFormatUds(lastDetail.getQuantity(), false)
+                            + " "
+                            + getString(R.string.product_not_defined)
+                            + " "
+                            + ConversionTools.getFormatPrice(lastDetail.getPrice(), false)
+                            + "\n"
+                            + getString(R.string.total)
+                            + " " + ConversionTools.getFormatPrice(lastDetail.getAmount(), false));
+                } else if (lastDetail.getIdProduct().equals("DDDDD")) {
+                    lastItem.setText(lastDetail.getProductName()
+                            + "\n"
+                            + getString(R.string.total)
+                            + " " + ConversionTools.getFormatPrice(lastDetail.getAmount(), false));
+                } else {
+                    String title = lastDetail.getTitle();
+                    if (lastDetail.getProductName().length() > 30) {
+                        title = lastDetail.getProductName().substring(0, 25) + "...";
+                    }
+
+                    String uds = "";
+                    Product p = new ProductCrud(db).findById(lastDetail.getIdProduct());
+                    if (p.getAskWeight() == 0) {
+                        uds = ConversionTools.getFormatUds(lastDetail.getQuantity(), lastDetail.isDecimalQuantity());
+                    } else {
+                        uds = ConversionTools.getFormatKg(lastDetail.getQuantity(), true);
+                    }
+
+                    this.lastItem.setText(uds
+                            + " " + numOrden
+                            + title
+                            + " "
+                            + ConversionTools.getFormatPrice(lastDetail.getPrice(), false)
+                            + "\n"
+                            + getString(R.string.total)
+                            + " " + ConversionTools.getFormatPrice(lastDetail.getAmount(), false));
+                }
+            }
+        }
+        isChanged = true;
+    }
+
+    public double calculatePrice(List<Detalle> details) {
+
+        if (quantity > 1) {
+            this.quantity = 1;
+            this.buttonX2.setChecked(false);
+            this.buttonX3.setChecked(false);
+        }
+
+        boolean hayDescuento = false;
+        int posDescuento = 0;
+
+        int index = 0;
+        for (Detalle detail : details) {
+            if (detail.getIdProduct().equals("DDDDD")) {
+                hayDescuento = true;
+                posDescuento = index;
+            }
+            index++;
+        }
+
+        double amount = 0.0;
+
+        for (Detalle detail : details) {
+            amount = amount + detail.getAmount();
+        }
+
+        double discountAmount = 0;
+        if (hayDescuento) {
+            amount = amount + Math.abs(getHeader().getDetails().get(posDescuento).getAmount());
+            discountAmount = (amount * getHeader().getDetails().get(posDescuento).getDiscount()) / 100;
+            discountAmount = -discountAmount;
+            getHeader().getDetails().get(posDescuento).setAmount(discountAmount);
+            Cash.getTicketFragment().getAdapterList().notifyDataSetChanged();
+        }
+
+        return amount + discountAmount;
+    }
+
+
     public void getProducts(String idCategory) {
         Database db = new Database(activity);
 
         this.products = new ProductCrud(db).findByCategory(idCategory);
         db.close();
 
-        this.gridView.setAdapter(new AdapterProductGridCash(activity, products));
-        this.inCategory = false;
+        gridView.setAdapter(new AdapterProductGridCash(activity, products));
+        inCategory = false;
 
-        this.buttonX2.setVisibility(View.VISIBLE);
-        this.buttonX3.setVisibility(View.VISIBLE);
+        buttonX2.setVisibility(View.VISIBLE);
+        buttonX3.setVisibility(View.VISIBLE);
 
-        this.buttonBack.setImageResource(R.mipmap.ic_back);
-
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        buttonBack.setImageResource(R.mipmap.ic_back);
 
     }
 
@@ -457,7 +702,7 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
         }
     }
 
-    public void getCategories(int supergroup) {
+    public static void getCategories(int supergroup) {
 
         if (displaySupergroups.equals("S")) {
             Database db = new Database(activity);
@@ -481,6 +726,30 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
 
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+        Log.d("checked", isChecked+"");
+        if (isChecked) {
+            switch (buttonView.getId()) {
+                case R.id.buttonX2:
+                    this.quantity = 2;
+
+                    buttonX3.setChecked(false);
+                    break;
+
+                case R.id.buttonX3:
+                    this.quantity = 3;
+
+                    buttonX2.setChecked(false);
+                    break;
+            }
+
+        } else {
+            this.quantity = 1;
+        }
+    }
+
     public void showOptions() {
 
         String[] options = getResources().getStringArray(R.array.options_cash);
@@ -501,11 +770,10 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
 
                         break;
                     case 1:
-//                        createDiscount();
+                        new DialogDiscount().show(getActivity().getSupportFragmentManager(), "dialogDiscount");
                         break;
                     case 2:
-//                        new DialogKeyboardSpecific(header.getDetails(), quantity).show(
-//                                getActivity().getSupportFragmentManager(), "Dialog");
+                        new DialogProductNotDefined().show(getActivity().getSupportFragmentManager(), "Dialog");
                         break;
                     case 3:
                         if (header.getIdHeader() == 0) {
@@ -528,6 +796,73 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
 
     }
 
+    public void setHeaderRefreshAll(Header header) {
+
+        this.header = header;
+        if (this.header.getDetails().size() > 0) {
+            this.setDetailsToHeader(this.header.getDetails(), this.header.getDetails().get(0));
+        } else {
+            this.setDetailsToHeader(this.header.getDetails(), new Detalle());
+        }
+
+        Cash.getTicketFragment().setDetails(this.header.getDetails());
+        Cash.getTicketFragment().setAdapterList(new AdapterListTicketFragment(getActivity(), Cash.getTicketFragment().getDetails()));
+        Cash.getTicketFragment().getListView().setAdapter(((Cash) getActivity()).getTicketFragment().getAdapterList());
+
+        numDinners.setText(header.getDiners() + "");
+
+        isChanged = false;
+
+    }
+
+    public void cancelAccount() {
+        if (header.getIdHeader() == 0) {
+            setHeaderRefreshAll(new Header());
+        } else {
+
+//            final Dialog dialog = new Dialog(context);
+//            dialog.setContentView(R.layout.dialog_cancel);
+//            dialog.setTitle("Atención");
+//
+//            TextView text = (TextView) dialog.findViewById(R.id.textViewDialogCancel);
+//            text.setText("La cuenta va a ser anulada y no podrá ser recuperada ¿Desea continuar?");
+//
+//            Button dialogButton = (Button) dialog.findViewById(R.id.buttonCancelDialogCancel);
+//            // if button is clicked, close the custom dialog
+//            dialogButton.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    dialog.dismiss();
+//                }
+//            });
+//
+//            Button dialogButtonOk = (Button) dialog.findViewById(R.id.buttonOkDialogCancel);
+//            // if button is clicked, close the custom dialog
+//            dialogButtonOk.setOnClickListener(new OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    CheckBox checkbox = (CheckBox) dialog.findViewById(R.id.checkBoxDialogCancel);
+//
+//                    if(checkbox.isChecked()){
+//                        ((Cash) getActivity()).getCashFragment().launchSaveBill(3);
+//
+//                        ((Cash) getActivity()).getCashFragment()
+//                                .setHeaderRefreshAll(new Header());
+//
+//                        dialog.cancel();
+//                    }
+//
+//
+//                }
+//            });
+//
+//            dialog.show();
+
+        }
+
+    }
+
     /**
      * Crea y abre un diálogo para buscar un producto escribiendo en una lista.
      */
@@ -538,5 +873,34 @@ public class CashFragment extends Fragment implements OnClickListener, OnItemCli
         dbTemp.close();
 
         new DialogFilterSearch(listaProductosTemporales, buttonMenus.getText().toString(), getActivity()).show(getActivity().getSupportFragmentManager(), "dialogFiltro");
+    }
+
+    public Header getHeader() {
+        return header;
+    }
+
+    public TextView getLastItem() {
+        return lastItem;
+    }
+
+
+    public void setTextLastItem(String text) {
+        getLastItem().setText(text);
+    }
+
+    public Button getButtonMenus() {
+        return buttonMenus;
+    }
+
+    public void setButtonMenus(Button buttonMenus) {
+        this.buttonMenus = buttonMenus;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }
